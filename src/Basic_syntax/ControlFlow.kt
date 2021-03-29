@@ -1,5 +1,12 @@
 package Basic_syntax
 
+import Person
+import java.lang.IllegalArgumentException
+import java.lang.Integer.parseInt
+import java.lang.NumberFormatException
+import kotlin.math.log
+
+@Throws(IllegalArgumentException::class)
 fun main(args: Array<String>) {
 
 //==================================
@@ -124,12 +131,12 @@ fun main(args: Array<String>) {
 
 
     //it work the same if u remove goto statement(loop@)
-    loop@for (i in 1..10){
+    loop@for (i in 1..10) {
         if (i==3){
             println("i = $i")
             break@loop
         }else{
-            println("will break when i = 3")
+            println("will break when i = 3 now i is [$i]")
         }
     }
     println("\n")
@@ -141,7 +148,7 @@ fun main(args: Array<String>) {
             println("i is $i")
             continue@loop
         }else{
-            println("It not break It cont until all the elements")
+            println("It not break It cont until all the elements i [$i]")
         }
     }
     println("==================================")
@@ -158,7 +165,7 @@ fun main(args: Array<String>) {
                 println("i $i j $j")
                 break@breakJ
             }else{
-                println("this print is not excute bcos loop j is break at the first index")
+                println("this print is not excute bcos loop j is break at the first index (j==1)")
             }
         }
     }
@@ -183,6 +190,8 @@ fun main(args: Array<String>) {
 
     //the real porpus of goto in kotlin is sortcut to break multi loop
     //here we break two loop just use only one goto statement(loop@)
+
+    //If we dont use goto loop i ot not stop. It only loop j that break
     loop@for (i in 1..10) {
          for (j in 1..10) {
             if (j==3){
@@ -200,7 +209,9 @@ fun main(args: Array<String>) {
     //If we dont use goto@ loop will break all and return
     fun foo() {
         listOf(0,1,2,3,4,5).forEach { index->
-            if (index == 3) return
+            if (index == 3)
+                return // return here mean break loop
+
             println(index)
         }
         println("this point is unreachable")
@@ -218,9 +229,9 @@ fun main(args: Array<String>) {
                 println("It==3 will skip all belove statement and goto up")
                 return@lit
             }
-            println(it)
+            println(it) //this print will not excute if i==3
         }
-        print(" done with explicit label")
+        println(" done with explicit label")
     }
     foo1()
     println("\n")
@@ -229,7 +240,10 @@ fun main(args: Array<String>) {
 
     fun foo2() {
         listOf(1, 2, 3, 4, 5).forEach {
-            if (it == 3) return@forEach // the same as foo1() fun
+            if (it == 3){
+                return@forEach // the same as foo1() fun
+            }
+
             println(it)
         }
         println(" done with implicit label")
@@ -254,12 +268,13 @@ fun main(args: Array<String>) {
     println("\n")
 
 
+    //this fun is like inner loop just change to use keyword 'run' stand for outer loop
     fun fooFun1() {
         run loop@{
             listOf(1, 2, 3, 4, 5).forEach {
                 if (it == 3){
                     return@loop // non-local return from the lambda passed to run
-                    // rerutn here will skip all loop index
+                    // return here will skip all loop index
                 }
                 println(it)
             }
@@ -267,5 +282,57 @@ fun main(args: Array<String>) {
         println(" done with nested loop")
     }
     fooFun1() //1,2
+    println("\n")
+
+
+
+    println("Exception")
+    println("\n==================================")
+
+    //try catch
+
+    try {
+        println("This block is check any error that will happen")
+        var a:Int = 10
+        println(a)
+
+        a = Integer.parseInt("A")
+
+        println(a)
+    }catch (e:Exception){
+        println("E-- ${e.message}")
+    }
+
+    //sort try catch it good to check only field that we warrning about
+
+    val v: Int? = try { parseInt("A")} catch (en:NumberFormatException){null}
+    println("It me v [$v]") //is null bcos error in parseInt() and catch not do anything
+
+
+
+    println("\n==================================")
+    // checked exceptions
+    //The Nothing type
+
+    var p = Person()
+    val xx = p.type ?: throw IllegalArgumentException("Name cant be null")
+
+    fun fail(message:String):Nothing{
+        throw IllegalArgumentException(message)
+    }
+
+    val xz = p.type?:fail("Name cant be null")
+    println(xz)
+
+    val xa = null
+    val xax = listOf(null)
+    val xxx = listOf<Nothing>()
+
+    // xax and xxx is the same
+
+
+
+
+
 
 }
