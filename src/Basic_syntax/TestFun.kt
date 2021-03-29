@@ -1,11 +1,21 @@
 package Basic_syntax
 
-import java.text.Normalizer
 
-// ===========void==============
-fun outPut(score:Int,name:String){
-    println("output $score -- $name")
-}
+    // ===========void==============
+    fun outPutVoid(score:Int,name:String){
+        println("output $score -- $name")
+    }
+
+    // ===========void==============
+    fun outPutType1(score:Int, name:String){
+        println("output $score -- $name")
+        //return "Hello "
+    }
+
+    fun outPutType2(score:Int,name:String): String {
+        println("output $score -- $name")
+        return "Hello "
+    }
 
 fun output1(a:String,b:String):Unit{
     //util def or void in java
@@ -38,26 +48,26 @@ fun read (
 }
 
 
-//===== overloading fun ======
-fun foo(i: Int): Int {
-    return i*2
-}
+    //===== overloading fun ======
+    fun foo(i: Int): Int {
+        return i*2
+    }
 
-fun foo(bar:Int = 0, baz:Int): Int {
-    return bar-baz
-}
+    fun foo(bar:Int = 0, baz:Int): Int {
+        return bar-baz
+    }
 
-fun foo(
-    bar: Int = 0,
-    baz: Int = 1,
-    qux: ()-> Unit
-): () -> Unit {
-    return qux
-}
+    fun foo(
+        bar: Int = 0,
+        baz: Int = 1,
+        qux: ()-> Unit
+    ): () -> Unit {
+        return qux
+    }
 
-fun foo(vararg str:String): Array<out String> {
-    return str
-}
+    fun foo(vararg str:String): Array<out String> {
+        return str
+    }
 
 
 
@@ -99,11 +109,59 @@ fun double(x:Int): Int = x*2
 
 fun inte(x:Int) = x+1
 
+//======= Explicit return types =========
 /**
  * Explicit return types﻿
 Functions with block body must always specify return types explicitly, unless it's intended for them to return Unit, in which case it is optional.
 Kotlin does not infer return types for functions with block bodies because such functions may have complex control flow in the body, and the return type will be non-obvious to the reader (and sometimes even for the compiler).
  */
+
+//======= Variable number of arguments (Varargs)﻿ =======
+
+fun <T> asList(vararg ts:T): List<T>{
+    val result = ArrayList<T>()
+
+    for (t in ts)
+        result.add(t)
+
+    return result
+}
+
+
+// ===== Infix notation ======
+// fun that can all by using .
+// when call we can use .sub for each var is Int type
+
+infix fun Int.sub(x:Int):Int{
+    return x+3
+}
+
+
+//===== Generics  =====
+
+fun <T> event(type:T){
+
+    println(type.toString())
+
+}
+
+fun <T> event1(type:T?=null){ //set default value = null
+
+    if (type!=null)
+        println(type.toString())
+    else
+        println("Empty params")
+}
+
+
+fun <T,V> event(type:T,data:V){
+
+    println(type.toString())
+    println(data.toString().length)
+
+}
+
+
 
 
 
