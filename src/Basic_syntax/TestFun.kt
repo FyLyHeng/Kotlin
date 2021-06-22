@@ -57,16 +57,20 @@ fun read (
         return bar-baz
     }
 
-    fun foo(
-        bar: Int = 0,
-        baz: Int = 1,
-        qux: ()-> Unit
-    ): () -> Unit {
+    //qux: ()-> Unit is the parameter that can accept everthing
+    fun foo(bar: Int = 0, baz: Int = 1, qux: ()-> Unit): () -> Unit {
         return qux
     }
 
+
+    //vararg str:String this parameter is a array
     fun foo(vararg str:String): Array<out String> {
         return str
+    }
+
+    //vararg str:String this parameter is a array
+    fun foo11(vararg str:String): String {
+        return "${str.asList().toString()}"
     }
 
 
@@ -135,6 +139,15 @@ fun <T> asList(vararg ts:T): List<T>{
 infix fun Int.sub(x:Int):Int{
     return x+3
 }
+
+infix fun Long.addOn(x:Int):Long{
+    return this + x.toLong()
+}
+
+
+//====== tailrec ======
+
+
 
 
 //===== Generics  =====

@@ -19,7 +19,7 @@ fun main(args: Array<String>){
 
 
     // set value to bar, and qux, but baz is use default
-    foo(1){println("hello")}
+    foo(1){println("hello fun process success")}
 
     //set new value to bar=1,baz=2, and qux = {...}
     foo(1,2) {
@@ -47,9 +47,15 @@ fun main(args: Array<String>){
 
     //params is array
     foo( str = *arrayOf("a","1","z"))
+    foo(  "1","2","3","4","5","6")
+
+    val  testfoo11 =  foo11("1","2","3","4","5","6")
+
+    println("testfoo11$testfoo11")
 
 
-    println("\n  Variable number of arguments")
+
+    println("\nVariable number of arguments")
     val list = asList(1,2,3)
     println(list)
 
@@ -71,6 +77,11 @@ fun main(args: Array<String>){
 
     println("This is infix fun ${a}") //11
     println("This is infix fun ${a.sub(2)}") // here value 11 of a will replace by value from sub fun = 5
+
+
+    var b = 10L
+    b.addOn(a).also { println("-- $it") }
+
 //==============================================================================================
 
 

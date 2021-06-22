@@ -55,9 +55,19 @@ fun main(args: Array<String>){
 
     //it cant call accessor set bcos it make to private
     //customSetterAndGetter.setterVisibility = 10
+    //if we pass value less then 0 the backing field custom is set to 0
 
-    customSetterAndGetter.counter = 10
-    var count:Int = customSetterAndGetter.counter
-    count.also { println(it) }
+    customSetterAndGetter.counter = -10
+    var count:Int = customSetterAndGetter.counter.also { println(it)}
+
+
+    //backing field and backing properties
+    customSetterAndGetter._table = null//mapOf("A" to 10)
+    var table:Map<String,Int> = customSetterAndGetter.table.also { println(it) }
+
+//======================================
+
+    val cus1 = CustomerGetter("liza","F",18)
+    cus1.display()
 
 }

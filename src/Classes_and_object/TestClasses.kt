@@ -1,6 +1,7 @@
 package Classes_and_object
 
 import java.lang.annotation.Inherited
+import javax.security.auth.Subject
 
 //init block
 class People(name: String, sex: String) {
@@ -30,20 +31,18 @@ class Customer(name: String) {
 //=======================================================================
 // we can spicific val(read-only) var(read-write)
 // to parameter of primary const
-class Person(val fName: String, val lName: String, var age: Int = -1) {
-
-}
+class Person(val fName: String, val lName: String, var age: Int = -1)
 
 
 //=======================================================================
 // set access level
-class Animal private constructor(name: String) {}
+class Animal private constructor(name: String)
 
 
 //=======================================================================
 //Secondary constructors
 
-class Teacher(val pets: MutableList<Pet> = mutableListOf()) {}
+class Teacher(val pets: MutableList<Pet> = mutableListOf())
 
 class Pet {
 
@@ -109,7 +108,6 @@ fun copyAddress(address: Address): Address {
 //=======================================================================
 //custom setter and getter
 
-//
 class CustomSetterAndGetter {
 
     //custom getter
@@ -133,20 +131,72 @@ class CustomSetterAndGetter {
 
     //this is how kotlin assige value to alocate memory
     //it assign vai spicel keyword 'field'
+    // 'value' is the spical aurgment it get value from client (caller)
     var counter = 0
         set(value) {
-            println("value > 0")
-            if (value < 0) field = value
+            if (value < 0) {
+                println("value is $value. it < 0 default is 0")
+                field = 0
+            }
         }
 
-    private var _table: Map<String, Int>? = null
-    public val table: Map<String, Int>
+
+    //backing operation
+    //bigger than backing field above
+    // val table is mean we not allow to setter to this field derict
+    // but can set by other field call _table
+
+    var _table: Map<String, Int>? = null
+    val table: Map<String, Int>
         get() {
             if (_table == null) {
+                println("_table is null")
+
+                //create new HasMap obj empty value
                 _table = HashMap()
             }
             return _table ?: throw AssertionError("Set to null by another thread")
         }
+}
+
+
+// age is nullable
+
+class CustomerGetter(val name:String,var gender:String, val age:Int){
+
+    //use lateinit for tell kotlin this var i dont want init or assige value now, but i want later or when i call this class
+    lateinit var ln:String
+    private val isOld : Boolean
+        get() {
+            return age >= 18
+        }
+
+
+    fun display(){
+        println("Age = $age  --- is old = $isOld")
+    }
+
+}
+//======================
+
+//class TestLateInit{
+//    //compile-time constants
+//    const val SUBSYSTEM_DEPRECATED : String = "this var need to init to pass requriment"
+//    @Deprecated(SUBSYSTEM_DEPRECATED) fun foo(){}
+//}
+
+
+//==============================
+//late initialized properties and variable
+class TestSubject{
+    fun showMe(){
+        println(this.javaClass)
+    }
+}
+
+
+class MyTest{
+    lateinit var subject: TestSubject
 }
 
 
