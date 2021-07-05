@@ -19,6 +19,10 @@ class CustomerService{
         }
     }
 
+    fun me(customer: Customer){
+        listOf(customer)
+    }
+
 
     fun save(customer: Customer){
         listeners.forEach{

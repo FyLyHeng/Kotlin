@@ -28,9 +28,9 @@ fun main(args: Array<String>) {
     }
     //=================================
 
-    repeatIndex(3,{i->
+    repeatIndex(3) { i ->
         println("$i. Welcome Kotlin")
-    })
+    }
 
 
 

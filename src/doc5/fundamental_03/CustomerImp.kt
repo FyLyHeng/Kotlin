@@ -10,4 +10,8 @@ class CustomerImp : CustomerEventListener {
         println("deleted")
     }
 
+    fun getMe(): List<String> {
+        return listOf("a","b")
+    }
+
 }
