@@ -7,6 +7,10 @@ val person = mapOf("name" to "dara", "age" to 20)
 val mperson = mutableMapOf("name" to "dara", "age" to 20)
 
 fun main() {
+
+    person.filter { it.key.startsWith("n") }.forEach{ println(it)}
+
+
     // data type list cant add or remove it read only
     //number.add(4)
     //person.put("position" to "it")
